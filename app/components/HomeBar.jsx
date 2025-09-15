@@ -1,11 +1,13 @@
 import "@/style/global.css";
 import React from "react";
-import { View } from "react-native";
+import { ScrollView } from "react-native";
 import HeroSection from "./HeroSection";
+import SecondSection from "./SecondSection";
 export default function HomeBar() {
   return (
-    <View>
+    <ScrollView className="flex-col bg-blue-50">
       <HeroSection />
-    </View>
+      <SecondSection/>
+    </ScrollView>
   );
 }

@@ -7,7 +7,7 @@ const ios = Platform.OS === "ios";
 
 export default function HomeScreen() {
   return (
-    <View className="bg-gray-200 flex-col h-full  pt-16 ">
+    <View className="bg-blue-100 flex-col h-full  pt-16 ">
       <View className="h-[30px]">
         <Navbar />
       </View>

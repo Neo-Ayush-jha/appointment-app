@@ -1,4 +1,7 @@
+import { loginUser } from "@/constants/api/User";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { User2Icon } from "lucide-react-native";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -16,13 +19,15 @@ import Navbar from "../components/Navbar";
 
 export default function Login() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  // const [email, setEmail] = useState(null);
+  // const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState("smriti@gmail.com");
+  const [password, setPassword] = useState("test1234");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
-  const handleLogin = () => {
-    console.log(" Email: " + email + " Password: " + password);
+  const handleLogin = async () => {
+    // console.log(" Email: " + email + " Password: " + password);
     if (!email || !password) {
       setError("Please fill all the fields");
       return;
@@ -33,14 +38,23 @@ export default function Login() {
       setError("Please enter a valid email address");
       return;
     }
+    const userData = { email, password };
+    try {
+      const response = await loginUser({ email, password });
+      // console.log("Login successful:", response);
+      await AsyncStorage.setItem("userData", JSON.stringify(response));
 
-    navigation.navigate("Home");
-    setEmail(null);
-    setPassword(null);
+      navigation.navigate("User");
+      setEmail(null);
+      setPassword(null);
+    } catch (error) {
+      console.log("Login error:", error);
+      setError("Login failed. Please check your credentials and try again.");
+    }
   };
 
   return (
-    <View className=" bg-gray-200 h-full w-full  pt-16">
+    <View className=" bg-blue-100 h-full w-full  pt-16">
       <View className="h-[30px] ">
         <Navbar />
       </View>
@@ -56,6 +70,7 @@ export default function Login() {
 
       <View className="flex-col justify- items-center mt-xl pt-[90px] gap-12">
         <View className="space-y-8 w-full justify-center items-center">
+          <User2Icon size={120} color="#2563eb" strokeWidth={1} />
           <Text className="text-4xl font-bold font- text-neutral-800">
             Welcome back
           </Text>
