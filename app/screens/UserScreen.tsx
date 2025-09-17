@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useEffect, useState } from "react";
 import { ScrollView, Text } from "react-native";
 import Calendar from "../components/CalendarPage";
 import RecentBookingList from "../components/RecentBookingList";
@@ -7,6 +8,16 @@ import WelcomeScetion from "../components/WelcomeScetion";
 
 export default function UserScreen({ user }: { user: any }) {
   const [userData, setUserData] = useState(user);
+
+  useEffect(() => {
+    const getUserData = async () => {
+      const stored = await AsyncStorage.getItem("userData");
+      if (stored) {
+        setUserData(JSON.parse(stored));
+      }
+    };
+    getUserData();
+  }, []);
 
   if (!userData) return <Text>Loading...</Text>;
 

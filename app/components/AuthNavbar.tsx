@@ -1,8 +1,13 @@
 import "@/style/global.css";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { DrawerActions, useNavigation, useRoute } from "@react-navigation/native";
+import {
+  DrawerActions,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { LogOut } from "lucide-react-native";
+import { useEffect, useState } from "react";
 import {
   Platform,
   SafeAreaView,
@@ -18,14 +23,29 @@ const ios = Platform.OS === "ios";
 export default function AuthNavbar() {
   const navigation = useNavigation();
   const route = useRoute();
-    const { userData } = route.params || {};
-    if (!userData) return <Text>Loading...</Text>;
+  const { user } = route.params || {};
+  const [userData, setUserData] = useState(user);
+
   
+  useEffect(() => {
+    const getUserData = async () => {
+      const stored = await AsyncStorage.getItem("userData");
+      if (stored) {
+        setUserData(JSON.parse(stored));
+      }
+    };
+    getUserData();
+  }, []);
+
+
+  if (!userData) return <Text>Loading...</Text>;
+
   const handleLogout = async () => {
     try {
       await AsyncStorage.clear();
       console.log("userData?.user logged out, session cleared!");
       navigation.navigate("Home" as never);
+      // navigation.navigate("Home" as never);
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -45,7 +65,8 @@ export default function AuthNavbar() {
           <View className="flex-row items-center">
             <Text className="text-neutral-800 text-2xl font-bold mr-2">
               {userData?.user?.name
-                ? userData?.user.name.charAt(0).toUpperCase() + userData?.user.name.slice(1)
+                ? userData?.user.name.charAt(0).toUpperCase() +
+                  userData?.user.name.slice(1)
                 : "Guest"}
             </Text>
             <View
@@ -60,7 +81,8 @@ export default function AuthNavbar() {
                 className="text-lg font-semibold ml-1"
               >
                 {userData?.user?.role
-                  ? userData?.user.role.charAt(0).toUpperCase() + userData?.user.role.slice(1)
+                  ? userData?.user.role.charAt(0).toUpperCase() +
+                    userData?.user.role.slice(1)
                   : "userData?.user"}
               </Text>
             </View>

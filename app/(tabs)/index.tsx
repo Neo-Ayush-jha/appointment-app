@@ -12,7 +12,6 @@ import OrganizationScreen from "@/app/screens/OrganizationScreen";
 import SignUpScreen from "@/app/screens/SignUpScreen";
 import User from "@/app/screens/User";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Text } from "react-native";
 import SideNavbar from "../components/SideNavbar";
 import ClientScreen from "../screens/ClientScreen";
 
@@ -68,7 +67,6 @@ export default function Index() {
     getUserData();
   }, []);
 
-  if (!userData) return <Text>Loading...</Text>;
 
   return (
     <>

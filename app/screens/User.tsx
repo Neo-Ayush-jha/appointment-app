@@ -7,7 +7,7 @@ import UserScreen from "../screens/UserScreen";
 export default function User() {
   const route = useRoute();
   const { userData } = route.params || {};
-  if (!userData) return <Text>Loading...</Text>;
+  // if (!userData) return <Text>Loading...</Text>;
 
   
   return (
