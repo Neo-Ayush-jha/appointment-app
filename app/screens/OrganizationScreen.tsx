@@ -13,8 +13,10 @@ export default function Organization() {
   useEffect(() => {
     const getUserData = async () => {
       const stored = await AsyncStorage.getItem("userData");
+
       if (stored) {
-        setUserData(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        setUserData(parsed);
       }
     };
     getUserData();
@@ -45,11 +47,11 @@ export default function Organization() {
             Manage organizations and their members
           </Text>
         </View>
-        <OrganizationCard />
+        <OrganizationCard userData={userData} />
       </View>
       <CreateOrganizationModal
         isVisible={isModalVisible}
-        onClose={() => setIsModalVisible(false)} 
+        onClose={() => setIsModalVisible(false)}
         userData={userData}
       />
     </View>

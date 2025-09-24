@@ -1,6 +1,7 @@
 import { X } from "lucide-react-native";
 import React, { useState } from "react";
 import {
+    Alert,
     Modal,
     ScrollView,
     Text,
@@ -20,7 +21,7 @@ export default function CreateOrganizationModal({
 }: {
   isVisible: boolean;
   onClose: () => void;
-  userData:any;
+  userData: any;
 }) {
   const [organizationName, setOrganizationName] = useState("");
   const [description, setDescription] = useState("");
@@ -33,7 +34,6 @@ export default function CreateOrganizationModal({
     callingCode: ["91"],
   });
 
-  
   const [errors, setErrors] = useState({});
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
   const [showCountryPicker, setShowCountryPicker] = useState(false);
@@ -68,21 +68,19 @@ export default function CreateOrganizationModal({
 
   const handleCreate = async () => {
     if (validateForm()) {
-      console.log(
-        "Form 987654w321 data is valid. Proceeding to create organization."
-      );
+      
       try {
         const payload = {
           name: organizationName,
           description: description,
-          established_date: establishedDate.toISOString(),
+          established_date: establishedDate?.toISOString(),
           address: address,
           phone: `${country.callingCode[0]}${phoneNumber}`,
           email: email,
-        //   creator_id:userData?.user?.id
+          //   creator_id:userData
         };
-        console.log("Payload for API:", payload);
-        const response = await createOrganization(payload);
+        // console.log("Payload for API:", payload);
+        const response = await createOrganization(payload, userData?.token);
 
         if (response.success) {
           Alert.alert("Success", "Organization created successfully!");

@@ -15,22 +15,25 @@ const axiosInstance = axios.create({
 const apiCallAuth = async (
   endpoint: string,
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE" = "GET",
-  data: any = {}
+  data: any = {},
+  token?: string
 ) => {
   try {
-    console.log("Request to backend:", { endpoint, method, data });
+    // console.log("Request to backend:", { endpoint, method, data ,token});
     const response = await axiosInstance({
       url: endpoint,
       method,
       data,
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
-    console.log("Response from backend:", response);
+    // console.log("Response from backend:", response);
     return response.data;
   } catch (error) {
     console.error(`Error calling backend API ${endpoint} `, error);
     throw error;
   }
 };
+
 export const signupUser = (data: any) => {
   if (
     !data ||
@@ -53,10 +56,10 @@ export const loginUser = (data: any) => {
 };
 
 // 🔹 Organization APIs
-export const createOrganization = (data: any) =>
-  apiCallAuth("/organizations/create", "POST", data);
+export const createOrganization = (data: any, token?: string) =>
+  apiCallAuth("/organizations/create", "POST", data, token);
 
-export const getAllOrganizations = () => apiCallAuth("/organizations/", "GET");
+export const getAllOrganizations = (token?: string) => apiCallAuth("/organizations/", "GET",null,token);
 
 export const assignUserToOrganization = (data: any) =>
   apiCallAuth("/organizations/assign/", "PUT", data);
