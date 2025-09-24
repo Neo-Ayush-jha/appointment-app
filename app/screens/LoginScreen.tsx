@@ -27,26 +27,27 @@ export default function Login() {
   const [error, setError] = useState("");
 
   const handleLogin = async () => {
-    // console.log(" Email: " + email + " Password: " + password);
     if (!email || !password) {
       setError("Please fill all the fields");
       return;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+    
     if (!emailRegex.test(email)) {
       setError("Please enter a valid email address");
       return;
     }
     const userData = { email, password };
     try {
+      // console.log(" Email: " + email + " Password: " + password );
       const response = await loginUser({ email, password });
-      // console.log("Login successful:", response);
+      // console.log(" Email: " + email + " Password: " + password + "---"+response);
+      console.log("Login successful:", response);
       await AsyncStorage.setItem("userData", JSON.stringify(response));
-
+      
       navigation.navigate("User");
-      setEmail(null);
-      setPassword(null);
+      setEmail("");
+      setPassword("");
     } catch (error) {
       console.log("Login error:", error);
       setError("Login failed. Please check your credentials and try again.");

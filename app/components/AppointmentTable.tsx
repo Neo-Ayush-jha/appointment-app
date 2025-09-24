@@ -26,8 +26,8 @@ export default function AppointmentTable({ tableData }) {
   }
 
   return (
-    <ScrollView className="py-4 w-full">
-      <View className="bg-blue-50 rounded-xl shadow-md p-4">
+    <ScrollView className="py-4 w-full mb-[100px]">
+      <View className="bg-blue-50 rounded-lg shadow-md p-4 mb-[150px]">
         <View className="flex flex-row items-center justify-between pb-2 border-b border-gray-200">
           <Text className="flex-1 font-bold text-gray-500 text-md">S no.</Text>
           <Text className="flex-1 font-bold text-gray-500 text-md">Customer</Text>

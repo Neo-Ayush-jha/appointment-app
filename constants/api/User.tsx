@@ -1,29 +1,37 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://172.16.205.30:3000/api";
+// const API_BASE_URL = "http://172.16.205.30:3000/api";
+
+const API_BASE_URL = "http://10.234.230.30:3000/api";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
+  timeout: 10000,
 });
 
-const apiCallAuth = async (endpoint, method = "GET", data = {}) => {
+const apiCallAuth = async (
+  endpoint: string,
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE" = "GET",
+  data: any = {}
+) => {
   try {
+    console.log("Request to backend:", { endpoint, method, data });
     const response = await axiosInstance({
       url: endpoint,
       method,
       data,
     });
-    // console.log("Response from backend:", response);
+    console.log("Response from backend:", response);
     return response.data;
   } catch (error) {
     console.error(`Error calling backend API ${endpoint} `, error);
     throw error;
   }
 };
-export const signupUser = (data) => {
+export const signupUser = (data: any) => {
   if (
     !data ||
     !data.name ||
@@ -37,14 +45,74 @@ export const signupUser = (data) => {
   return apiCallAuth("/auth/signup", "POST", data);
 };
 
-export const loginUser = (data) => {
+export const loginUser = (data: any) => {
   if (!data || !data.email || !data.password) {
     throw new Error("Email and password are required for login");
   }
   return apiCallAuth("/auth/login", "POST", data);
 };
 
+// 🔹 Organization APIs
+export const createOrganization = (data: any) =>
+  apiCallAuth("/organizations/create", "POST", data);
+
+export const getAllOrganizations = () => apiCallAuth("/organizations/", "GET");
+
+export const assignUserToOrganization = (data: any) =>
+  apiCallAuth("/organizations/assign/", "PUT", data);
+
+export const approveOrganization = (id: number) =>
+  apiCallAuth(`/organizations/approve/${id}`, "POST");
+
+// 🔹 Appointment APIs
+export const createAppointment = (data: any) =>
+  apiCallAuth("/appointments", "POST", data);
+
+export const getAllAppointments = () => apiCallAuth("/appointments", "GET");
+
+export const getAppointmentById = (id: number) =>
+  apiCallAuth(`/appointments/${id}`, "GET");
+
+export const cancelAppointment = (id: number) =>
+  apiCallAuth(`/appointments/${id}`, "DELETE");
+
+export const requestReschedule = (id: number, data: any) =>
+  apiCallAuth(`/appointments/${id}/reschedule-request`, "POST", data);
+
+export const approveReschedule = (id: number) =>
+  apiCallAuth(`/appointments/${id}/reschedule-approve`, "POST");
+
+export const rejectReschedule = (id: number) =>
+  apiCallAuth(`/appointments/${id}/reschedule-reject`, "PATCH");
+
+export const getClientAppointments = () =>
+  apiCallAuth("/appointments/my/clients", "GET");
+
+export const submitFeedback = (id: number, feedback: any) =>
+  apiCallAuth(`/appointments/${id}/feedback`, "POST", feedback);
+
+export const getAppointmentFeedback = (id: number) =>
+  apiCallAuth(`/appointments/${id}/viewFeedback`, "GET");
+
+// 🔹 Feedback APIs
+export const getMyFeedback = () => apiCallAuth("/my-feedback", "GET");
+
 export default {
   signupUser,
   loginUser,
+  createOrganization,
+  getAllOrganizations,
+  assignUserToOrganization,
+  approveOrganization,
+  createAppointment,
+  getAllAppointments,
+  getAppointmentById,
+  cancelAppointment,
+  requestReschedule,
+  approveReschedule,
+  rejectReschedule,
+  getClientAppointments,
+  submitFeedback,
+  getAppointmentFeedback,
+  getMyFeedback,
 };
