@@ -19,7 +19,7 @@ const apiCallAuth = async (
   token?: string
 ) => {
   try {
-    // console.log("Request to backend:", { endpoint, method, data ,token});
+    console.log("Request to backend:--------------", { endpoint, method, data, token });
     const response = await axiosInstance({
       url: endpoint,
       method,
@@ -55,11 +55,14 @@ export const loginUser = (data: any) => {
   return apiCallAuth("/auth/login", "POST", data);
 };
 
+export const callAllUser = () => apiCallAuth("/users", "GET");
+
 // 🔹 Organization APIs
 export const createOrganization = (data: any, token?: string) =>
   apiCallAuth("/organizations/create", "POST", data, token);
 
-export const getAllOrganizations = (token?: string) => apiCallAuth("/organizations/", "GET",null,token);
+export const getAllOrganizations = (token?: string) =>
+  apiCallAuth("/organizations/", "GET", null, token);
 
 export const assignUserToOrganization = (data: any) =>
   apiCallAuth("/organizations/assign/", "PUT", data);
@@ -68,10 +71,11 @@ export const approveOrganization = (id: number) =>
   apiCallAuth(`/organizations/approve/${id}`, "POST");
 
 // 🔹 Appointment APIs
-export const createAppointment = (data: any) =>
-  apiCallAuth("/appointments", "POST", data);
+export const createAppointment = (data: any, token?: string) =>
+  apiCallAuth("/appointments", "POST", data, token);
 
-export const getAllAppointments = () => apiCallAuth("/appointments", "GET");
+export const getAllAppointments = (token?: string) =>
+  apiCallAuth("/appointments", "GET", null, token);
 
 export const getAppointmentById = (id: number) =>
   apiCallAuth(`/appointments/${id}`, "GET");
@@ -118,4 +122,5 @@ export default {
   submitFeedback,
   getAppointmentFeedback,
   getMyFeedback,
+  callAllUser,
 };

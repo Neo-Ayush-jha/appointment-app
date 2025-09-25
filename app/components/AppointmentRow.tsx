@@ -1,14 +1,13 @@
 import { EyeIcon } from "lucide-react-native";
-import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-
+import React from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 
 export default function AppointmentRow({ item, onDetailsPress }) {
   const getStatusColor = (status) => {
     switch (status) {
       case "booked":
         return "bg-blue-100 text-blue-800";
-      case "scheduled":
+      case "pending_reschedule":
         return "bg-yellow-100 text-yellow-800";
       case "cancelled":
         return "bg-red-100 text-red-800";
@@ -25,7 +24,9 @@ export default function AppointmentRow({ item, onDetailsPress }) {
         <Text className="text-md font-medium text-gray-800">{item.id}</Text>
       </View>
       <View className="flex-1">
-        <Text className="text-md font-medium text-gray-800">{item.customer}</Text>
+        <Text className="text-md font-medium text-gray-800">
+          {item?.professional?.name}
+        </Text>
       </View>
       <View className="flex-1">
         <Text className="text-xs text-gray-600">{item.date}</Text>

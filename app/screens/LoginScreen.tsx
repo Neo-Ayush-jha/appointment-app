@@ -42,7 +42,7 @@ export default function Login() {
       // console.log(" Email: " + email + " Password: " + password );
       const response = await loginUser({ email, password });
       // console.log(" Email: " + email + " Password: " + password + "---"+response);
-      console.log("Login successful:", response);
+      console.log("Login successful...");
       await AsyncStorage.setItem("userData", JSON.stringify(response));
       
       navigation.navigate("User");

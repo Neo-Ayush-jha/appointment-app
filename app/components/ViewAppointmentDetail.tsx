@@ -6,10 +6,36 @@ export default function ViewAppointmentDetail({
   isVisible,
   onClose,
   appointment,
+  userDetails,
 }) {
   if (!isVisible || !appointment) {
     return null;
   }
+  const formatAppointmentDuration = (duration) => {
+    const minutes = Number(duration);
+    if (isNaN(minutes) || minutes <= 0) {
+      return "N/A";
+    }
+    if (minutes >= 60) {
+      const hours = Math.floor(minutes / 60);
+      const remainingMinutes = minutes % 60;
+
+      let parts = [];
+      if (hours > 0) {
+        parts.push(`${hours} hour${hours > 1 ? "s" : ""}`);
+      }
+      if (remainingMinutes > 0) {
+        parts.push(`${remainingMinutes} min`);
+      }
+      return parts.join(" and ");
+    }
+    return `${minutes} min`;
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB");
+  };
 
   return (
     <Modal
@@ -24,6 +50,14 @@ export default function ViewAppointmentDetail({
           <View className="space-y-2 gap-4">
             <View className="flex-row justify-between">
               <Text className="font-semibold text-xl text-gray-700">
+                User name:
+              </Text>
+              <Text className="text-gray-600 text-xl">
+                {appointment?.user?.name || "N/A"}
+              </Text>
+            </View>
+            <View className="flex-row justify-between">
+              <Text className="font-semibold text-xl text-gray-700">
                 Service:
               </Text>
               <Text className="text-gray-600 text-xl">
@@ -32,31 +66,37 @@ export default function ViewAppointmentDetail({
             </View>
             <View className="flex-row justify-between">
               <Text className="font-semibold text-xl text-gray-700">
-                Customer:
+                {userDetails?.user?.role === "customer"
+                  ? "Professional:"
+                  : "Customer:"}
               </Text>
               <Text className="text-gray-600 text-xl">
-                {appointment.customer}
+                {appointment?.professional?.name || "N/A"}
               </Text>
             </View>
             <View className="flex-row justify-between">
-              <Text className="font-semibold text-xl text-gray-700">
-                Date & Time:
+              <Text className="font-semibold text-xl text-gray-700">Date:</Text>
+              <Text className="text-gray-600 text-xl">
+                {formatDate(appointment.date)}
               </Text>
-              <Text className="text-gray-600 text-xl">{`${appointment.date} at ${appointment.time}`}</Text>
+            </View>
+            <View className="flex-row justify-between">
+              <Text className="font-semibold text-xl text-gray-700">Time:</Text>
+              <Text className="text-gray-600 text-xl">{appointment.time}</Text>
             </View>
             <View className="flex-row justify-between">
               <Text className="font-semibold text-xl text-gray-700">
                 Duration:
               </Text>
               <Text className="text-gray-600 text-xl">
-                {appointment.duration}
+                {formatAppointmentDuration(appointment.duration)}
               </Text>
             </View>
             <View className="flex-row justify-between">
               <Text className="font-semibold text-xl text-gray-700">
                 Price:
               </Text>
-              <Text className="text-gray-600 text-xl">{appointment.price}</Text>
+              <Text className="text-gray-600 text-xl">₹ {appointment.price}</Text>
             </View>
             <View className="flex-row justify-between">
               <Text className="font-semibold text-xl text-gray-700">

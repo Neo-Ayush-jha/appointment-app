@@ -1,21 +1,23 @@
 import { getAllOrganizations } from "@/constants/api/User";
+import { useRoute } from "@react-navigation/native";
 import { Building, Calendar, Mail, Phone, Users } from "lucide-react-native";
 import React, { useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 
-export default function OrganizationCard( userData : any) {
+export default function OrganizationCard() {
   const [organizations, setOrganizations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+const route = useRoute();
+  // console.log("Route params:", route.params.userData.token);
   useEffect(() => {
     const fetchOrganizations = async () => {
       try {
-        const response = await getAllOrganizations(userData?.userData?.token);
+        const response = await getAllOrganizations(route.params.userData?.token);
 
         let filteredOrgs = [];
 
-        if (userData?.userData?.user?.role === "admin") {
+        if (route.params.userData?.user?.role === "admin") {
           filteredOrgs = response.organizations;
         } else {
           filteredOrgs = response.organizations.filter(

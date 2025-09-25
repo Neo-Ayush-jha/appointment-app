@@ -26,7 +26,6 @@ export default function AuthNavbar() {
   const { user } = route.params || {};
   const [userData, setUserData] = useState(user);
 
-  
   useEffect(() => {
     const getUserData = async () => {
       const stored = await AsyncStorage.getItem("userData");
@@ -37,14 +36,16 @@ export default function AuthNavbar() {
     getUserData();
   }, []);
 
-
   if (!userData) return <Text>Loading...</Text>;
 
   const handleLogout = async () => {
     try {
       await AsyncStorage.clear();
       console.log("userData?.user logged out, session cleared!");
-      navigation.navigate("Home" as never);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Dashboard" as never }], 
+      });
       // navigation.navigate("Home" as never);
     } catch (error) {
       console.error("Logout error:", error);

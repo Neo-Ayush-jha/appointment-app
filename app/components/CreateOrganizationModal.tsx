@@ -1,28 +1,28 @@
 import { X } from "lucide-react-native";
 import React, { useState } from "react";
 import {
-    Alert,
-    Modal,
-    ScrollView,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Alert,
+  Modal,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 // Import the new library
 import { createOrganization } from "@/constants/api/User";
+import { useRoute } from "@react-navigation/native";
 import CountryPicker from "react-native-country-picker-modal";
 
 export default function CreateOrganizationModal({
   isVisible,
   onClose,
-  userData,
 }: {
   isVisible: boolean;
   onClose: () => void;
-  userData: any;
 }) {
+  const route = useRoute();
   const [organizationName, setOrganizationName] = useState("");
   const [description, setDescription] = useState("");
   const [establishedDate, setEstablishedDate] = useState<Date | null>(null);
@@ -33,7 +33,6 @@ export default function CreateOrganizationModal({
     cca2: "IN",
     callingCode: ["91"],
   });
-
   const [errors, setErrors] = useState({});
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
   const [showCountryPicker, setShowCountryPicker] = useState(false);
@@ -68,7 +67,6 @@ export default function CreateOrganizationModal({
 
   const handleCreate = async () => {
     if (validateForm()) {
-      
       try {
         const payload = {
           name: organizationName,
@@ -77,10 +75,12 @@ export default function CreateOrganizationModal({
           address: address,
           phone: `${country.callingCode[0]}${phoneNumber}`,
           email: email,
-          //   creator_id:userData
         };
         // console.log("Payload for API:", payload);
-        const response = await createOrganization(payload, userData?.token);
+        const response = await createOrganization(
+          payload,
+          route.params.userData?.token
+        );
 
         if (response.success) {
           Alert.alert("Success", "Organization created successfully!");
