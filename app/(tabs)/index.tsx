@@ -18,8 +18,8 @@ import ClientScreen from "../screens/ClientScreen";
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function CustomDrawerContent(props: any) {
-  return <SideNavbar {...props} />;
+function CustomDrawerContent({ userData, ...props }: any) {
+  return <SideNavbar userData={userData} {...props} />;
 }
 
 const StackNavigation = ({ route }: any) => {
@@ -67,12 +67,15 @@ export default function Index() {
     getUserData();
   }, []);
 
+  
 
   return (
     <>
       <Drawer.Navigator
         screenOptions={{ headerShown: false }}
-        drawerContent={(props) => <CustomDrawerContent {...props} />}
+        drawerContent={(props) => (
+          <CustomDrawerContent {...props} userData={userData} />
+        )}
       >
         <Drawer.Screen
           name="Dashboard"

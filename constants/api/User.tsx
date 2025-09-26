@@ -19,7 +19,7 @@ const apiCallAuth = async (
   token?: string
 ) => {
   try {
-    console.log("Request to backend:--------------", { endpoint, method, data, token });
+    console.log("Api Request to backend:--------------", { endpoint, method, data, token });
     const response = await axiosInstance({
       url: endpoint,
       method,
@@ -57,7 +57,7 @@ export const loginUser = (data: any) => {
 
 export const callAllUser = () => apiCallAuth("/users", "GET");
 
-// 🔹 Organization APIs
+//  Organization APIs
 export const createOrganization = (data: any, token?: string) =>
   apiCallAuth("/organizations/create", "POST", data, token);
 
@@ -70,7 +70,7 @@ export const assignUserToOrganization = (data: any) =>
 export const approveOrganization = (id: number) =>
   apiCallAuth(`/organizations/approve/${id}`, "POST");
 
-// 🔹 Appointment APIs
+//  Appointment APIs
 export const createAppointment = (data: any, token?: string) =>
   apiCallAuth("/appointments", "POST", data, token);
 
@@ -101,7 +101,7 @@ export const submitFeedback = (id: number, feedback: any) =>
 export const getAppointmentFeedback = (id: number) =>
   apiCallAuth(`/appointments/${id}/viewFeedback`, "GET");
 
-// 🔹 Feedback APIs
+//  Feedback APIs
 export const getMyFeedback = () => apiCallAuth("/my-feedback", "GET");
 
 export default {

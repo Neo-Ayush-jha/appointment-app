@@ -19,10 +19,10 @@ import Navbar from "../components/Navbar";
 
 export default function Login() {
   const navigation = useNavigation();
-  // const [email, setEmail] = useState(null);
-  // const [password, setPassword] = useState(null);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("abhishak@example.com");
+  const [password, setPassword] = useState("12345");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
@@ -32,7 +32,7 @@ export default function Login() {
       return;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
     if (!emailRegex.test(email)) {
       setError("Please enter a valid email address");
       return;
@@ -44,7 +44,7 @@ export default function Login() {
       // console.log(" Email: " + email + " Password: " + password + "---"+response);
       console.log("Login successful...");
       await AsyncStorage.setItem("userData", JSON.stringify(response));
-      
+
       navigation.navigate("User");
       setEmail("");
       setPassword("");

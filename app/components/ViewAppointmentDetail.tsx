@@ -1,4 +1,8 @@
-import { PenSquareIcon, Trash2Icon } from "lucide-react-native";
+import {
+  MessageSquareCode,
+  PenSquareIcon,
+  Trash2Icon,
+} from "lucide-react-native";
 import React from "react";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 
@@ -96,7 +100,9 @@ export default function ViewAppointmentDetail({
               <Text className="font-semibold text-xl text-gray-700">
                 Price:
               </Text>
-              <Text className="text-gray-600 text-xl">₹ {appointment.price}</Text>
+              <Text className="text-gray-600 text-xl">
+                ₹ {appointment.price}
+              </Text>
             </View>
             <View className="flex-row justify-between">
               <Text className="font-semibold text-xl text-gray-700">
@@ -110,12 +116,29 @@ export default function ViewAppointmentDetail({
               <Text className="font-semibold text-xl text-gray-700">
                 Action:
               </Text>
-              <View className="flex-1 flex-row items-center justify-end space-x-2 gap-2">
-                <TouchableOpacity>
-                  <PenSquareIcon size={20} color="#3b82f6" />
+              <View className="flex-1 flex-row items-center justify-end space-x-2 gap-6">
+                {appointment.status === "completed" && (
+                  <TouchableOpacity className="bg-green-200 p-4 rounded-xl" onPress={() => {}}>
+                    <MessageSquareCode
+                      size={26}
+                      color="#10b981"
+                      title="Give Feedback"
+                    />
+                  </TouchableOpacity>
+                )}
+                <TouchableOpacity className="bg-blue-200 p-4 rounded-xl">
+                  <PenSquareIcon
+                    size={26}
+                    color="#3b82f6"
+                    title="Edit Appointment"
+                  />
                 </TouchableOpacity>
-                <TouchableOpacity>
-                  <Trash2Icon size={20} color="#ef4444" />
+                <TouchableOpacity className="bg-red-200 p-4 rounded-xl">
+                  <Trash2Icon
+                    size={26}
+                    color="#ef4444"
+                    title="Delete Appointment"
+                  />
                 </TouchableOpacity>
               </View>
             </View>
