@@ -20,7 +20,7 @@ export default function SideNavbar(props: any) {
   useEffect(() => {
     const getUserData = async () => {
       const stored = await AsyncStorage.getItem("userData");
-      console.log("Session ", stored);
+      // console.log("Session ", stored);
       if (stored) {
         setUserData(JSON.parse(stored));
         setLoading(false);
@@ -28,16 +28,6 @@ export default function SideNavbar(props: any) {
     };
     getUserData();
   }, []);
-
-  // useEffect(() => {
-  //     // const getUserData = async () => {
-  //     //   const stored = await AsyncStorage.getItem("userData");
-  //     //   if (stored) {
-  //     //     setUserData(JSON.parse(stored));
-  //     //   }
-  //     // };
-  //     // getUserData();
-  // }, [props.userData]);
 
   const handleLogout = async () => {
     try {
@@ -48,7 +38,6 @@ export default function SideNavbar(props: any) {
       console.error("Logout error:", error);
     }
   };
-  console.log("Ayyy", userData);
   return (
     <>
       {loading ? (
@@ -120,7 +109,7 @@ export default function SideNavbar(props: any) {
 
             <TouchableOpacity
               className="flex-row items-center px-3 py-3"
-              onPress={() => props.navigation.navigate("About")}
+              onPress={() => props.navigation.navigate("Messages")}
             >
               <View className="bg-blue-600 p-2 rounded-full">
                 <MessagesSquare size={24} color="white" strokeWidth={2} />

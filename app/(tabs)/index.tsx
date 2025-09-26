@@ -13,6 +13,8 @@ import SignUpScreen from "@/app/screens/SignUpScreen";
 import User from "@/app/screens/User";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SideNavbar from "../components/SideNavbar";
+import ChatMessageScreen from "../screens/ChatMessageScreen";
+import ChatScreen from "../screens/ChatScreen";
 import ClientScreen from "../screens/ClientScreen";
 
 const Stack = createNativeStackNavigator();
@@ -100,6 +102,16 @@ export default function Index() {
         <Drawer.Screen
           name="Organization"
           component={OrganizationScreen}
+          initialParams={{ userData }}
+        />
+        <Drawer.Screen
+          name="Messages"
+          component={ChatScreen}
+          initialParams={{ userData }}
+        />
+        <Drawer.Screen
+          name="ChatMessages"
+          component={ChatMessageScreen}
           initialParams={{ userData }}
         />
       </Drawer.Navigator>

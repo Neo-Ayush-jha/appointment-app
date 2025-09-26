@@ -16,7 +16,7 @@ export default function User() {
   useEffect(() => {
     const getUserData = async () => {
       const stored = await AsyncStorage.getItem("userData");
-      console.log("Session ", stored);
+      // console.log("Session ", stored);
       if (stored) {
         setUserData(JSON.parse(stored));
         setLoading(false);
