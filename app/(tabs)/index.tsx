@@ -16,6 +16,7 @@ import SideNavbar from "../components/SideNavbar";
 import ChatMessageScreen from "../screens/ChatMessageScreen";
 import ChatScreen from "../screens/ChatScreen";
 import ClientScreen from "../screens/ClientScreen";
+import NotePad from "../screens/NotePad";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -112,6 +113,11 @@ export default function Index() {
         <Drawer.Screen
           name="ChatMessages"
           component={ChatMessageScreen}
+          initialParams={{ userData }}
+        />
+        <Drawer.Screen
+          name="NotePad"
+          component={NotePad}
           initialParams={{ userData }}
         />
       </Drawer.Navigator>

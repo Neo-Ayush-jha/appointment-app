@@ -40,11 +40,11 @@ export default function SideNavbar(props: any) {
   };
   return (
     <>
-      {loading ? (
+      {/* {loading ? (
         <View className="flex-1 justify-center items-center bg-blue-100">
           <Text className="text-4xl font-bold">Loading...</Text>
         </View>
-      ) : (
+      ) : ( */}
         <DrawerContentScrollView
           {...props}
           contentContainerStyle={{ flex: 1 }}
@@ -121,7 +121,7 @@ export default function SideNavbar(props: any) {
 
             <TouchableOpacity
               className="flex-row items-center px-3 py-3"
-              onPress={() => props.navigation.navigate("About")}
+              onPress={() => props.navigation.navigate("NotePad")}
             >
               <View className="bg-blue-600 p-2 rounded-full">
                 <NotebookPen size={24} color="white" strokeWidth={2} />
@@ -157,7 +157,7 @@ export default function SideNavbar(props: any) {
             </TouchableOpacity>
           </View>
         </DrawerContentScrollView>
-      )}
+      {/* )} */}
     </>
   );
 }

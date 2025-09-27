@@ -1,0 +1,45 @@
+{
+    "chats": [
+        {
+            "created_at": "2025-09-26T18:12:20.000Z",
+            "id": 1,
+            "message": "HelloDoctor,Ihaveaquestion",
+            "receiver": [Object
+            ],
+            "sender": [Object
+            ]
+        },
+        {
+            "created_at": "2025-09-27T17:11:45.000Z",
+            "id": 4,
+            "message": "Ihaveaquestion",
+            "receiver": [Object
+            ],
+            "sender": [Object
+            ]
+        },
+        {
+            "created_at": "2025-09-27T17:32:35.000Z",
+            "id": 5,
+            "message": "Ayush,kyachahtehomaintumhareliye/inboxkaeksamplePostmanrequest+responseJSONbanakededujisetumimportkarkedirecttestkarsako?",
+            "receiver": [Object
+            ],
+            "sender": [Object
+            ]
+        }
+    ],
+    "userData": {
+        "success": true,
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwibmFtZSI6IkRyLiBBbWFuIiwiZW1haWwiOiJhbWFuQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEZNWS9NUVhmbGQ5enV4aGZNbWFHQ09DY1lOWFJzeS9vWWVpb0l3TTRad0dLSDkxQlFVTDBDIiwicm9sZSI6ImRvY3RvciIsImlzX3ZlcmlmaWVkIjoxLCJvcmdhbml6YXRpb25faWQiOjEsImNyZWF0ZWRfYXQiOiIyMDI1LTA5LTA3VDA3OjQ4OjM2LjAwMFoiLCJpYXQiOjE3NTg5OTYzNDd9.tX14qwsyBk7wZ-mxKVHcNnM4geGWppE-v9UJzLknYIw",
+        "user": {
+            "created_at": "2025-09-07T07:48:36.000Z",
+            "email": "aman@gmail.com",
+            "id": 8,
+            "is_verified": 1,
+            "name": "Dr.Aman",
+            "organization_id": 1,
+            "password": "$2b$10$FMY/MQXfld9zuxhfMmaGCOCcYNXRsy/oYeioIwM4ZwGKH91BQUL0C",
+            "role": "doctor"
+        }
+    }
+}

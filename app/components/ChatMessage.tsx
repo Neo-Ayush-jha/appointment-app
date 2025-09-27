@@ -1,21 +1,15 @@
 import React from "react";
-import { Text, View, Image } from "react-native";
+import { Text, View } from "react-native";
 
 export default function ChatMessage({ chat, userId }: any) {
-  const isSentByUser = chat.senderId !== userId;
+  const isSentByUser = chat.receiver.id !== userId;
 
   return (
     <View
-      className={`flex-row ${isSentByUser ? "justify-end" : "justify-start"} my-1 w-full`}
+      className={`flex-row ${isSentByUser ? "justify-end" : "justify-start"} my-2 w-full px-4`}
     >
-      {!isSentByUser && (
-        <Image
-          source={{ uri: chat.avatar }}
-          className="w-8 h-8 rounded-full mr-2"
-        />
-      )}
       <View
-        className={`max-w-[75%] p-3 rounded-xl ${
+        className={`max-w-[75%] px-3 py-2 rounded-xl ${
           isSentByUser ? "bg-green-600 rounded-tr-none" : "bg-gray-300 rounded-tl-none"
         }`}
       >
@@ -26,12 +20,7 @@ export default function ChatMessage({ chat, userId }: any) {
           {chat.time}
         </Text>
       </View>
-      {isSentByUser && (
-        <Image
-          source={{ uri: chat.avatar }}
-          className="w-8 h-8 rounded-full ml-2"
-        />
-      )}
+      
     </View>
   );
 }

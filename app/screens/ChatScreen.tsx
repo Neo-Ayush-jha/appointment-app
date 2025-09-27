@@ -1,5 +1,6 @@
+import { getChatList } from "@/constants/api/User";
 import { useRoute } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import AuthNavbar from "../components/AuthNavbar";
 import ChatList from "../components/ChatList";
@@ -7,6 +8,30 @@ import ChatList from "../components/ChatList";
 export default function ChatScreen() {
   const route = useRoute();
   // console.log("Route params:", route.params.userData.token);
+
+  const [chats, setChats] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchChats = async () => {
+      try {
+        setLoading(true);
+        // console.log("Fetching chats...");
+        if (!route?.params?.userData?.token) throw new Error("No token found");
+        const response = await getChatList(route?.params?.userData?.token);
+        if (!response || !response?.conversations)
+          throw new Error("Invalid response from server");
+        // console.log("Fetched chats:", response?.conversations);
+        setChats(response?.conversations || []);
+      } catch (err: any) {
+        setError(err.message || "Failed to fetch chats");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchChats();
+  }, []);
   return (
     <View className="bg-blue-100 flex-col h-full  pt-16 pb-28">
       <View className="h-[30px]">
@@ -27,7 +52,7 @@ export default function ChatScreen() {
             </Text>
           </Text>
         </View>
-        <ChatList/>
+        <ChatList conversations={chats}/>
       </View>
     </View>
   );

@@ -19,7 +19,12 @@ const apiCallAuth = async (
   token?: string
 ) => {
   try {
-    console.log("Api Request to backend:--------------", { endpoint, method, data, token });
+    console.log("Api Request to backend:--------------", {
+      endpoint,
+      method,
+      data,
+      token,
+    });
     const response = await axiosInstance({
       url: endpoint,
       method,
@@ -103,6 +108,18 @@ export const getAppointmentFeedback = (id: number) =>
 
 //  Feedback APIs
 export const getMyFeedback = () => apiCallAuth("/my-feedback", "GET");
+
+// Chat APIs
+export const getChatDetails = (
+  appointment_id: string | number,
+  token?: string
+) => apiCallAuth(`/chat/${appointment_id}`, "GET", null, token);
+
+export const getChatList = (token?: string) =>
+  apiCallAuth("/chat/inbox", "GET", null, token);
+
+export const submitChat = (data: any,token?: string) =>
+  apiCallAuth("/chat", "POST",data, token);
 
 export default {
   signupUser,

@@ -19,7 +19,8 @@ import Navbar from "../components/Navbar";
 
 export default function Login() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("abhishak@example.com");
+  // const [email, setEmail] = useState("abhishak@example.com");
+  const [email, setEmail] = useState("aman@gmail.com");
   const [password, setPassword] = useState("12345");
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
